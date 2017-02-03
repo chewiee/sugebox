@@ -10,6 +10,7 @@ class BoxesController < ApplicationController
   # GET /boxes/1
   # GET /boxes/1.json
   def show
+    @suggestion = Suggestion.new
   end
 
   # GET /boxes/new
@@ -25,13 +26,14 @@ class BoxesController < ApplicationController
   # POST /boxes.json
   def create
     @box = Box.new(box_params)
+    @box.text = nil if @box.text.blank?
 
     respond_to do |format|
       if @box.save
         format.html { redirect_to @box, notice: 'Box was successfully created.' }
         format.json { render :show, status: :created, location: @box }
       else
-        format.html { render :new }
+        format.html { redirect_to new_box_path, notice: 'no blank boxes'}
         format.json { render json: @box.errors, status: :unprocessable_entity }
       end
     end

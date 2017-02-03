@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'pages#index'
+  root 'boxes#index'
 
-  resources :suggestions
+  resources :suggestions 
 
   resources :boxes
 

@@ -1,9 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @box.text %>
+  <div class='heading'>
+    <%= @box.text %>
+  </div>
 </p>
 
-<%= link_to 'Edit', edit_box_path(@box) %> |
-<%= link_to 'Back', boxes_path %>
+<% if @box.remaining > 0 %>
+  <%= form_for(@suggestion) do |f| %>
+    <%= f.label :text %>
+    <%= f.text_field :text, :autofocus=>true, :class=>'input-text effect1'%>
+    <%= f.hidden_field :box_id, :value=> @box.id %>
+    <br></br>
+    <%= f.submit "put it in the box", :class=>'create-button button-effect'%>
+  <% end %>
+
+  <div class='limit-remaining'>
+    needs <%= @box.remaining.to_words %> more to open
+  </div>
+<% else %>
+  <ul class='suggestion-list'>
+    <% @box.suggestions.each do |suggestion| %>
+      <li class='suggestion-item'>
+        <%= suggestion.text %>
+      </li>
+    <% end %>
+  </ul>
+  <%= button_to "new box", :new_box, {method: :get, class: 'new-box-button'}%>
+<% end %>

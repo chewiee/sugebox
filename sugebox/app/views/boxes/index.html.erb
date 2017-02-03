@@ -1,4 +1,2 @@
-<h1>Sugebox</h1>
-<div class='new-box-button'>
-<%= link_to 'New Box', new_box_path %>
-</div>
+<h1 class='heading'>Sugebox</h1>
+<%= button_to "new box", :new_box, {method: :get, class: 'new-box-button'}%>

@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203011139) do
+ActiveRecord::Schema.define(version: 20170203201934) do
 
   create_table "boxes", force: true do |t|
-    t.text     "text"
+    t.text     "text",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "limit",      default: 10, null: false
   end
 
   create_table "suggestions", force: true do |t|
-    t.text     "text"
+    t.text     "text",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "box_id"

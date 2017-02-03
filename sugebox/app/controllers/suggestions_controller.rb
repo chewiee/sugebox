@@ -25,13 +25,15 @@ class SuggestionsController < ApplicationController
   # POST /suggestions.json
   def create
     @suggestion = Suggestion.new(suggestion_params)
-
+    @suggestion.text = nil if @suggestion.text.blank?
+    @box = @suggestion.box
+    
     respond_to do |format|
       if @suggestion.save
-        format.html { redirect_to @suggestion, notice: 'Suggestion was successfully created.' }
+        format.html { redirect_to @box, notice: 'added "' + @suggestion.text + '"' }
         format.json { render :show, status: :created, location: @suggestion }
       else
-        format.html { render :new }
+        format.html { redirect_to @box, notice: 'don\'t put blank in the box' }
         format.json { render json: @suggestion.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +71,6 @@ class SuggestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def suggestion_params
-      params.require(:suggestion).permit(:text)
+      params.require(:suggestion).permit(:text, :box_id)
     end
 end
