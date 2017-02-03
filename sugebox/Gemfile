@@ -41,3 +41,5 @@ gem 'spring',        group: :development
 gem 'to_words'
 
 gem 'obfuscate_id'
+gem 'pg'
+gem 'rails_12factor'
